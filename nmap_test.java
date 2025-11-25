@@ -6,7 +6,20 @@ public class NmapRunner {
         StringBuilder output = new StringBuilder();
 
         try {
-            ProcessBuilder pb = new ProcessBuilder("nmap", "-Pn", "-T4", target);
+            // Add a sentence before the scan output
+            output.append("This is to scan the following IP: ")
+                  .append(target)
+                  .append("\n\n");
+
+            // Run Nmap on all ports
+            ProcessBuilder pb = new ProcessBuilder(
+                "nmap",
+                "-Pn",
+                "-T4",
+                "-p-",
+                target
+            );
+
             pb.redirectErrorStream(true);
             Process process = pb.start();
 
